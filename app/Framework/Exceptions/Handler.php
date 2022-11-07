@@ -61,10 +61,6 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        if (config('app.debug') === true) {
-            return parent::render($request, $e);
-        }
-
         if ($e instanceof ModelNotFoundException) {
             $message = __('errors.not_found');
             $errors = [
@@ -76,6 +72,10 @@ class Handler extends ExceptionHandler
             $errors = $e->getResponseErrors();
             $code = $e->getResponseCode();
         } else {
+            if (config('app.debug') === true) {
+                return parent::render($request, $e);
+            }
+
             $message = __('auth.unexpected_error');
             $errors = [
                 __('auth.unexpected_error')

@@ -40,7 +40,13 @@ class AuthTest extends TestCase
         $this->assertArrayHasKey('user', $responseResult);
         $this->assertArrayHasKey('access_token', $responseResult);
 
-        $r = $this->post('/api/auth/register', $user);
+        $r = $this
+            ->withHeaders(
+                [
+                    'Accept' => 'application/json',
+                ]
+            )
+            ->post('/api/auth/register', $user);
         $r->assertStatus(422);
 
         $userModel = User::whereEmail($user['email'])->first();
