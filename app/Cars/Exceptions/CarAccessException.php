@@ -7,7 +7,6 @@ use Exception;
 
 class CarAccessException extends Exception implements ResponseableException
 {
-
     public function getResponseMessage(): string
     {
         return __('errors.car.cant_access');

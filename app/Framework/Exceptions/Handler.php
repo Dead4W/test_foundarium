@@ -71,7 +71,7 @@ class Handler extends ExceptionHandler
                 __('errors.not_found')
             ];
             $code = 404;
-        } else if ($e instanceof ResponseableException) {
+        } elseif ($e instanceof ResponseableException) {
             $message = $e->getResponseMessage();
             $errors = $e->getResponseErrors();
             $code = $e->getResponseCode();

@@ -149,7 +149,7 @@ class CarControllerTest extends TestCase
 
         $page = 1;
 
-        while(count($data['result']['cars']) > 0) {
+        while (count($data['result']['cars']) > 0) {
             $page++;
             $response = $this
                 ->actingAs($this->getRandomUser())

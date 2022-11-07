@@ -7,7 +7,6 @@ use Exception;
 
 class UserAlreadyExistException extends Exception implements ResponseableException
 {
-
     public function getResponseMessage(): string
     {
         return __('auth.register.email_already_exists');

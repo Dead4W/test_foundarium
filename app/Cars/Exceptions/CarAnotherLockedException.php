@@ -7,7 +7,6 @@ use Exception;
 
 class CarAnotherLockedException extends Exception implements ResponseableException
 {
-
     public function getResponseMessage(): string
     {
         return __('errors.car.another_locked');

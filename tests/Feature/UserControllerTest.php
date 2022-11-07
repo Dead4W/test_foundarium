@@ -41,7 +41,7 @@ class UserControllerTest extends TestCase
 
         $page = 1;
 
-        while(count($data['result']['users']) > 0) {
+        while (count($data['result']['users']) > 0) {
             $page++;
             $response = $this
                 ->actingAs($this->getRandomUser())
