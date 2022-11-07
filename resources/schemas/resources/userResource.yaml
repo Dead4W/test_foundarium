@@ -1,0 +1,27 @@
+type: object
+properties:
+  access_token:
+    type: string
+    description: 'Token for header ''Authorization Bearer {access_token}'','
+  token_type:
+    type: string
+    enum:
+      - Bearer
+  expires_in:
+    type: integer
+    description: 'Number of minutes until an issued token will be considered expired. If null - do not expire.'
+  is_new:
+    type: boolean
+    description: 'If new user was created'
+  user_id:
+    type: integer
+    description: 'Logged-in user id'
+  is_city_detected:
+    type: bool
+    description: 'If city is detected by ip when register'
+required:
+  - access_token
+  - token_type
+  - expires_in
+  - is_new
+  - is_city_detected

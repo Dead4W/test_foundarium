@@ -1,0 +1,55 @@
+version: '3.8'
+networks:
+  default:
+    name: app
+  app:
+    name: app
+  proxy:
+    name: proxy
+
+services:
+  db:
+    image: postgres
+    networks:
+      - app
+    ports:
+        - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+  php:
+    image: webdevops/php-nginx:8.1
+    restart: always
+    networks:
+      - app
+      - proxy
+    volumes:
+      - ./:/app
+    environment:
+      WEB_DOCUMENT_ROOT: /app/public/
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.rest.rule=HostRegexp(`api.{host:.+}`)
+      - traefik.http.services.rest.loadbalancer.server.port=80
+  proxy:
+    image: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=proxy"
+      - "--entrypoints.web.address=:80"
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+ #     - ./traefik.toml:/etc/traefik/traefik.toml
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.monitor.rule=Host(`monitor.loc`)
+      - traefik.http.services.monitor.loadbalancer.server.port=8080
