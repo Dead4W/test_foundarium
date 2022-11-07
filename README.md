@@ -16,3 +16,5 @@ composer install
 # configure application
 composer run configure
 ```
+
+Swagger url: http://api.localhost/openapi/

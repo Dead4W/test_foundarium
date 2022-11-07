@@ -51,7 +51,8 @@
         "configure": [
             "cp .env.example .env",
             "@php artisan migrate -n -q",
-            "@php artisan migrate:fresh --seed"
+            "@php artisan migrate:fresh --seed",
+            "@php artisan l5-swagger:generate"
         ]
     },
     "extra": {
